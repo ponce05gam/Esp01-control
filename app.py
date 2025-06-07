@@ -1,26 +1,20 @@
-from flask import Flask, request
+from flask import Flask
 
 app = Flask(__name__)
 
-led_state = False
-
-@app.route('/on')
-def led_on():
-    global led_state
-    led_state = True
-    print("LED ENCENDIDO")
-    return "LED ENCENDIDO"
-
-@app.route('/off')
-def led_off():
-    global led_state
-    led_state = False
-    print("LED APAGADO")
-    return "LED APAGADO"
+@app.route('/')
+def index():
+    return "Hola desde Render y Flask!"
 
 @app.route('/status')
-def led_status():
-    return "LED está " + ("ENCENDIDO" if led_state else "APAGADO")
+def status():
+    return "ENCENDIDO"
+
+@app.route('/apagar')
+def apagar():
+    return "APAGADO"
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    # Esto solo se ejecuta si corres python app.py localmente
+    app.run(host='0.0.0.0', port=5000, debug=True)
+
