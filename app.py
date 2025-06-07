@@ -1,20 +1,20 @@
 from flask import Flask
 
 app = Flask(__name__)
-estado_led = "apagado"
+led_status = "off"
 
-@app.route("/encender")
+@app.route("/on")
 def encender():
-    global estado_led
-    estado_led = "encendido"
-    return "led encendido"
+    global led_status
+    led_status = "on"
+    return "LED encendido"
 
-@app.route("/apagar")
+@app.route("/off")
 def apagar():
-    global estado_led
-    estado_led = "apagado"
-    return "led apagado"
+    global led_status
+    led_status = "off"
+    return "LED apagado"
 
 @app.route("/status")
 def status():
-    return f"led {estado_led}"
+    return led_status
