@@ -1,17 +1,30 @@
-estado_led = "APAGADO"  # Estado inicial
+from flask import Flask
+import os
 
-@app.route('/encender')
+app = Flask(__name__)
+
+ARCHIVO_ESTADO = "estado.txt"
+
+def guardar_estado(estado):
+    with open(ARCHIVO_ESTADO, "w") as archivo:
+        archivo.write(estado)
+
+def leer_estado():
+    if not os.path.exists(ARCHIVO_ESTADO):
+        return "APAGADO"  # Por defecto
+    with open(ARCHIVO_ESTADO, "r") as archivo:
+        return archivo.read()
+
+@app.route("/encender")
 def encender():
-    global estado_led
-    estado_led = "ENCENDIDO"
-    return "LED encendido"
+    guardar_estado("ENCENDIDO")
+    return "led encendido"
 
-@app.route('/apagar')
+@app.route("/apagar")
 def apagar():
-    global estado_led
-    estado_led = "APAGADO"
-    return "LED apagado"
+    guardar_estado("APAGADO")
+    return "led apagado"
 
-@app.route('/status')
+@app.route("/status")
 def status():
-    return estado_led
+    return leer_estado()
