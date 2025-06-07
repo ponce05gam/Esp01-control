@@ -1,20 +1,17 @@
-from flask import Flask
-app = Flask(_name_)
-
-# Estado global (se pierde si el servidor se reinicia)
-estado_actual = {"estado": "APAGADO"}
+estado_led = "APAGADO"  # Estado inicial
 
 @app.route('/encender')
 def encender():
-    estado_actual["estado"] = "ENCENDIDO"
-    return "Estado cambiado a ENCENDIDO"
+    global estado_led
+    estado_led = "ENCENDIDO"
+    return "LED encendido"
 
 @app.route('/apagar')
 def apagar():
-    estado_actual["estado"] = "APAGADO"
-    return "Estado cambiado a APAGADO"
+    global estado_led
+    estado_led = "APAGADO"
+    return "LED apagado"
 
 @app.route('/status')
 def status():
-    return estado_actual["estado"]
-
+    return estado_led
