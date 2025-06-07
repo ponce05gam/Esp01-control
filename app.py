@@ -1,20 +1,20 @@
 from flask import Flask
+app = Flask(_name_)
 
-app = Flask(__name__)
+# Estado global (se pierde si el servidor se reinicia)
+estado_actual = {"estado": "APAGADO"}
 
-@app.route('/')
-def index():
-    return "Hola desde Render y Flask!"
-
-@app.route('/status')
-def status():
-    return "ENCENDIDO"
+@app.route('/encender')
+def encender():
+    estado_actual["estado"] = "ENCENDIDO"
+    return "Estado cambiado a ENCENDIDO"
 
 @app.route('/apagar')
 def apagar():
-    return "APAGADO"
+    estado_actual["estado"] = "APAGADO"
+    return "Estado cambiado a APAGADO"
 
-if __name__ == '__main__':
-    # Esto solo se ejecuta si corres python app.py localmente
-    app.run(host='0.0.0.0', port=5000, debug=True)
+@app.route('/status')
+def status():
+    return estado_actual["estado"]
 
