@@ -17,4 +17,8 @@ def apagar():
 
 @app.route("/status")
 def status():
-    return led_status
+    global led_status
+    if led_status == "on":
+        return "LED ENCENDIDO"
+    else:
+        return "LED APAGADO"
