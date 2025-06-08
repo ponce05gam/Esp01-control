@@ -7,18 +7,17 @@ led_status = "off"
 def encender():
     global led_status
     led_status = "on"
-    return "LED encendido"
+    return "LED ENCENDIDO"
 
 @app.route("/off")
 def apagar():
     global led_status
     led_status = "off"
-    return "LED apagado"
+    return "LED APAGADO"
 
 @app.route("/status")
 def status():
-    global led_status
     if led_status == "on":
-        return "LED ENCENDIDO"
+        return "LED está ENCENDIDO"
     else:
-        return "LED APAGADO"
+        return "LED está APAGADO"
